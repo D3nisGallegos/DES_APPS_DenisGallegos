@@ -1,0 +1,5 @@
+{
+    "watch": ["bin", "routes", "views"],
+    "ext": "js,json,pug"
+  }
+  
