@@ -38,4 +38,33 @@ app.use(function(err, req, res, next) {
   res.render('error');
 });
 
+
+
 module.exports = app;
+
+
+// Endpoint GET
+app.get('/', (req, res) => {
+  res.send('Hello World!')
+});
+
+// Endpoint POST
+app.post('/', (req, res) => {
+  res.send('Got a POST request');
+});
+
+// Endpoint PUT
+app.put('/user', (req, res) => {
+  res.send('Got a PUT request at /user');
+});
+
+// Endpoint DELETE
+app.delete('/user', (req, res) => {
+  res.send('Got a DELETE request at /user');
+});
+
+// Endpoint GET para probar
+app.get('/test', (req, res) => {
+  res.send('Esto es una prueba');
+});
+
