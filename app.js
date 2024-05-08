@@ -3,13 +3,14 @@ var express = require('express');
 var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
+var apiConnection = require('./api_connection'); // Importa el código de api_connection.js
 
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 
 var app = express();
 
-// view engine setup
+// Configuración del motor de vistas
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'jade');
 
@@ -22,49 +23,31 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
 
-// catch 404 and forward to error handler
+// Middleware para manejar errores 404
 app.use(function(req, res, next) {
   next(createError(404));
 });
 
-// error handler
+// Middleware para manejar otros errores
 app.use(function(err, req, res, next) {
-  // set locals, only providing error in development
   res.locals.message = err.message;
   res.locals.error = req.app.get('env') === 'development' ? err : {};
-
-  // render the error page
   res.status(err.status || 500);
   res.render('error');
 });
 
-
-
-module.exports = app;
-
-
-// Endpoint GET
-app.get('/', (req, res) => {
-  res.send('Hello World!')
-});
-
-// Endpoint POST
-app.post('/', (req, res) => {
-  res.send('Got a POST request');
-});
-
-// Endpoint PUT
-app.put('/user', (req, res) => {
-  res.send('Got a PUT request at /user');
-});
-
-// Endpoint DELETE
-app.delete('/user', (req, res) => {
-  res.send('Got a DELETE request at /user');
-});
+// Llama a la función fetchData de api_connection.js y maneja la respuesta
+apiConnection.fetchData()
+  .then(response => {
+    console.log(response.data); // Imprime los datos de la API en la consola
+  })
+  .catch(error => {
+    console.error('Error al hacer la solicitud a la API:', error);
+  });
 
 // Endpoint GET para probar
 app.get('/test', (req, res) => {
   res.send('Esto es una prueba');
 });
 
+module.exports = app;
