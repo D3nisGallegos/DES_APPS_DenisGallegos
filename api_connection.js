@@ -6,3 +6,4 @@ function fetchData() {
 }
 
 module.exports = fetchData; // Exporta la función para que esté disponible para otros archivos
+
