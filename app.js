@@ -36,18 +36,18 @@ app.use(function(err, req, res, next) {
   res.render('error');
 });
 
+// Endpoint GET para probar
+app.get('/test', (req, res) => {
+  res.send('Esto es una prueba');
+});
+
 // Llama a la función fetchData de api_connection.js y maneja la respuesta
-apiConnection.fetchData()
+apiConnection()
   .then(response => {
     console.log(response.data); // Imprime los datos de la API en la consola
   })
   .catch(error => {
     console.error('Error al hacer la solicitud a la API:', error);
   });
-
-// Endpoint GET para probar
-app.get('/test', (req, res) => {
-  res.send('Esto es una prueba');
-});
 
 module.exports = app;
